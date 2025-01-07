@@ -2,7 +2,7 @@ import ast
 from ossapi import Ossapi
 api = Ossapi("[redacetd]","[redacted]")
 
-with open("DMCA_mapper_dict.txt", 'r') as file: # I got this from the other respo I made
+with open("DMCA_mapper_dict.txt", 'r') as file: # I got this from the other repo I made
     file_content = file.read()
     dmca_player = ast.literal_eval(file_content)
     
