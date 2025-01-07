@@ -2,7 +2,7 @@ import ast
 from ossapi import Ossapi
 api = Ossapi("[redacetd]","[redacted]")
 
-with open("DMCA_mapper_dict.txt", 'r') as file:
+with open("DMCA_mapper_dict.txt", 'r') as file: # I got this from the other respo I made
     file_content = file.read()
     dmca_player = ast.literal_eval(file_content)
     
@@ -29,4 +29,3 @@ for k,v in search_prompt.items():
 # mapper has previous username but removed it
 # common noun names
         
-    
