@@ -1,3 +1,4 @@
+import webbrowser
 from ossapi import Ossapi
 api = Ossapi("[redacted]","[redacted]")
 
@@ -21,7 +22,9 @@ while True: # this is still manual lol
     
     for i in search_gd_links:
         if i not in user_gd_links:
-            print(f'https://osu.ppy.sh/beatmapsets/{i}/') 
+            url = 'https://osu.ppy.sh/beatmapsets/' + str(i) + '/'
+            print(url)
+            webbrowser.open(url)
     # basically what this does is it prints out whatever is in the search result but not in the user's gd
     
 # I still have to make a script for cases where
