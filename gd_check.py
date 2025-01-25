@@ -69,9 +69,9 @@ while True: # this is still manual lol
         if i not in user_gd_links:
             url = 'https://osu.ppy.sh/beatmapsets/' + str(i) + '/'
             print(url)
-            if n < 31: # prevents getting 429'd
+            if n < 11: # prevents getting 429'd
                 webbrowser.open(url)
-            if n == 30:
+            if n == 10:
                 print('429 preventer activated')
             n += 1
             
