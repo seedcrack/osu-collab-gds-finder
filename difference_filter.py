@@ -1,7 +1,7 @@
 import ast
 import webbrowser
 from ossapi import Ossapi
-api = Ossapi("34837","TkpakvCBFyBx8cObjqSP9809Uk31JE2b17KseMYJ")
+api = Ossapi("[redacted]","[redacted]")
 more_than_100_gds = ['Alace', 'ignorethis', 'Andrea', 'climbb65588', 'lepidopodus', 'kanpakyin', 'OnosakiHito', 'riffy', 'bossandy', 'No_Gu', '-kevincela-', 'fanzhen0019', 'Sekai', 'Laurier', 'alacat', 'Kyouren', 'Hinsvar', 'Skystar', 'Flask', 'Xinely', 'Gero', 'pregnant_man', 'Irreversible', 'Momochikun', 'toybot', 'HabiHolic', 'yf_bmp', 'IamKwaN', 'Nardoxyribonucleic', 'Rizia', 'Spectator', 'captin1', 'Delis', 'Annabel', 'KoldNoodl', 'pishifat', 'Kibbleru', 'Amateurre', 'arronchu1207', 'Karen', 'Pata-Mon', 'Garden', 'Critical_Star', 'Ayesha', 'Ascendance', 'JBHyperion', 'Dailycare', 'Sotarks', 'Akitoshi', 'SnowNiNo_', 'Djulus', 'Affirmation', 'Lasse', 'Irohas', 'Gorou', 'Kalibe', 'A', 'Agatsu', 'Mir', 'kowari', 'Kujinn', 'Nao', 'schoolboy', 'Genjuro', 'Kojio', 'gaston_2199', 'Mirash', 'Trynna', 'AirinCat', 'PandaHero', 'Hivie', 'Faputa', 'Jemzuu', 'Pepekcz', 'Xen', 'Tachibana_', 'Mocaotic', 'Shiyun', 'AsuKow', 'iRedi', 'Ryxliee']
 
 with open("unchecked.txt", 'r') as file:
