@@ -22,13 +22,16 @@ with open("removed_names_dict.txt", 'r') as file3:
 
 while True: # I think this is the best I can do without some over the top stuff
     n = 1
+    total_search_amount = 0
     user_gd_set = set()
     user_ranked_set = set()
     user_loved_set = set()
     username_list = []
     result = set()
     temp_set = set()
-    username_input = (input('username : ').replace("\\",'').replace("'",'').strip()) # miss input
+    username_result_dict = {}
+    username_input = input('username : ').replace("\\",'').replace("'",'').strip() # miss input
+    print('')
     if username_input == 'end':
         break
     if username_input in more_than_100_gds:
@@ -42,6 +45,7 @@ while True: # I think this is the best I can do without some over the top stuff
     
     if username_input in removed_names_dict:
         username_set |= removed_names_dict[username_input]
+        
     for i in username_set:
         if ' ' in i:
             i = i.replace(' ', '_')
@@ -51,20 +55,25 @@ while True: # I think this is the best I can do without some over the top stuff
     username_set |= temp_set
     
     for i in username_set:
-        if ' ' not in i:
-            print(i)
-            for k,tag in tags_dict_list.items():
-                if i.lower() in tag:
-                    result.add(k)
+        username_result_dict[i] = set()
+        
+    for k,v in username_result_dict.items():
+        if ' ' not in k:
+            individual_result = set()
+            for map_id,tag in tags_dict_list.items():
+                if k.lower() in tag and banned_tag.lower() not in tag:
+                    username_result_dict[k].add(map_id)
+                    individual_result.add(map_id)
         else:
-            print(i)
-            for k,tag in tags_dict.items():
-                if i.lower() in tag:
-                    result.add(k)
+            individual_result = set()
+            for map_id,tag in tags_dict.items():
+                if k.lower() in tag and banned_tag.lower() not in tag:
+                    username_result_dict[k].add(map_id)
+                    individual_result.add(map_id)
             
-    user_gd = (api.user_beatmaps(u_id,type='guest',limit=500)) # for some reason it can't go above 100
-    user_ranked = (api.user_beatmaps(u_id,type='ranked',limit=500))
-    user_loved = (api.user_beatmaps(u_id,type='loved',limit=500))
+    user_gd = api.user_beatmaps(u_id,type='guest',limit=500) # for some reason it can't go above 100
+    user_ranked = api.user_beatmaps(u_id,type='ranked',limit=500)
+    user_loved = api.user_beatmaps(u_id,type='loved',limit=500)
     for i in user_gd:
         user_gd_set.add(i.id)
     for i in user_ranked:
@@ -72,16 +81,33 @@ while True: # I think this is the best I can do without some over the top stuff
     for i in user_loved:
         user_loved_set.add(i.id)
         
-    out = result - (user_gd_set | user_ranked_set | user_loved_set | blacklisted_maps)
+    for k,v in username_result_dict.items():
+        result |= v
+        
+    left_over = result - (user_gd_set | user_ranked_set | user_loved_set | blacklisted_maps)
     
-    for i in out:
+    for k,v in username_result_dict.items():
+        username_result_dict[k] &= left_over
+        
+    print('Names       amount') # too lazy to set up pandas
+    for k,v in username_result_dict.items():
+        print(f'{k}     {len(v)}')
+        total_search_amount += len(v)
+        
+    if total_search_amount != len(left_over):
+        print('WARNING: Some beatmaps have multiple aliases of the mapper in the tags')
+        
+
+    for i in left_over:
         url = 'https://osu.ppy.sh/beatmapsets/' + str(i) + '/'
         print(url)
-        if n < 11: # prevents getting 429'd
+        if n % 10 != 0: # prevents getting 429'd
             webbrowser.open(url)
-        if n == 10:
-            print('429 preventer activated')
+        else:
+            input_pause = input('''enter to continue, type 'end' to abort: ''')
+            if input_pause == 'end':
+                break
         n += 1
-            
+        
+    print('DONE')
 # basically what this does is it prints out whatever is in the search result but not in the user's gd
-
