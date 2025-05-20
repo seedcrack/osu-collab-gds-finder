@@ -49,7 +49,8 @@ for i in all_map:
                 else:
                     custom_diffname_beatmap_dict[supposed_owner].add(j.id)
                     custom_diffname_beatmapset_dict[supposed_owner].add(map_set.id)
-                    
+
+            # I can probably combine the two together but I don't want to, it's not like it's gonna be 200% faster anyway
             if "s'" in diff_name:
                 diff_name_processed = diff_name.split("'")
                 supposed_owner = diff_name_processed[0].strip()
