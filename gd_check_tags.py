@@ -99,9 +99,11 @@ while True: # I think this is the best I can do without some over the top stuff
         if n % 15 != 0: # prevents getting 429'd
             webbrowser.open(url)
         else:
+            webbrowser.open(url)
             input_pause = input('''enter to continue, type 'end' to abort: ''')
             if input_pause == 'end':
                 break
+
         n += 1
         
     print('DONE')
