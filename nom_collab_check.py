@@ -14,11 +14,13 @@ def blatant_nom_error(beatmap,bn,mappers,host):
             return True
     return False
 
-def no_host_collab(beatmap,mappers,host):
+def no_host_collab(beatmap,mappers):
+    keyword = ['collab', 'feat.' 'ft.']
     diff_name = beatmap.version
-    if 'collab' in diff_name.lower():
-        if len(mappers) == 1 and list(mappers)[0] != host:
-            return True
+    for i in keyword:
+        if i in diff_name.lower():
+            if len(mappers) == 1:
+                return True
     return False
 
 nom_error = set()
@@ -42,7 +44,7 @@ for i in all_map:
             raw_mappers = beatmap.owners
             for k in raw_mappers:
                 mappers.add(k.id)
-            if no_host_collab(beatmap,mappers,host):
+            if no_host_collab(beatmap,mappers):
                 print('collab found')
                 host_collab_fix.add(i)
             
